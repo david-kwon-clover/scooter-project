@@ -10,19 +10,19 @@ describe("User", () => {
 
   describe("User properties", () => {
     it("should have a username property with a string value", () => {
-        expect(testUser.username).toBe("dkwon");
+        expect(testUser).toHaveProperty("username", "dkwon");
     });
 
     it("should have a password property with a string value", () => {
-        expect(testUser.password).toBe("fartguy123");
+        expect(testUser).toHaveProperty("password", "fartguy123");
     });
 
     it("should have an age property with a number value", () => {
-        expect(testUser.age).toBe(27);
+        expect(testUser).toHaveProperty("age", 27);
     });
 
     it("should have a loggedIn property with a boolean value", () => {
-        expect(testUser.loggedIn).toBe(false);
+        expect(testUser).toHaveProperty("loggedIn", false);
     });
     
     it("should start off not logged in", () => {
