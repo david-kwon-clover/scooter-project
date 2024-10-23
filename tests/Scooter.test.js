@@ -6,8 +6,10 @@ describe("Scooter", () => {
   let testScooterNew;
   let testScooterDocked;
   let testScooterInUse;
+  let testScooterBroken;
   let testUser1;
   let testUser2;
+  let testUser3;
 
   beforeEach(() => {
     testScooterNew = new Scooter("Central Park");
@@ -16,9 +18,9 @@ describe("Scooter", () => {
     testScooterLowCharge = new Scooter("Convention Center");
     testScooterBroken = new Scooter("Convention Center");
 
-    testUser1 = new User();
-    testUser2 = new User();
-    testUser3 = new User();
+    testUser1 = new User("testUser1", "password", 22);
+    testUser2 = new User("testUser2", "password", 25);
+    testUser3 = new User("testUser3", "password", 27);
 
     testScooterInUse.rent(testUser1);
 
@@ -29,16 +31,15 @@ describe("Scooter", () => {
 
   describe("Scooter properties", () => {
     it("should have a station property with a string value of location if docked", () => {
-      expect(testScooterDocked.station).toBe("Union Station");
+      expect(testScooterDocked).toHaveProperty("station", "Union Station");
     });
 
     it("should have a station property with a null value if checked out", () => {
-      expect(testScooterInUse.station).toBeNull();
+      expect(testScooterInUse).toHaveProperty("station", null);
     });
 
     it("should have a user property with a User instance if checked out", () => {
-      expect(testScooterInUse.user).toEqual(testUser1);
-      expect(testScooterInUse.user).toBeInstanceOf(User);
+      expect(testScooterInUse).toHaveProperty("user", testUser1);
     });
 
     it("should have a user property with a null value if docked", () => {
@@ -46,19 +47,19 @@ describe("Scooter", () => {
     });
 
     it("should have a serial property with a number value", () => {
-      expect(testScooterDocked.serial).toBe(1);
+      expect(testScooterDocked).toHaveProperty("serial", 1);
     });
 
     it("should have a nextSerial static property with a number value starting at 1 and incrementing for each instance of Scooter created", () => {
-      expect(testScooterDocked.nextSerial).toBe(2);
+      expect(testScooterDocked).toHaveProperty("nextSerial", 2);
     });
 
     it("should have a charge property with a number value from 0 to 100", () => {
-      expect(testScooterDocked.charge).toBe(100);
+      expect(testScooterDocked).toHaveProperty("charge", 100);
     });
 
     it("should have a isBroken property with a boolean value", () => {
-      expect(testScooterDocked.isBroken).toBe(false);
+      expect(testScooterDocked).toHaveProperty("isBroken", false);
     });
 
     it("should start off docked - valid string station and null user", () => {
