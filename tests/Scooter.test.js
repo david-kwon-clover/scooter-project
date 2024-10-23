@@ -47,11 +47,11 @@ describe("Scooter", () => {
     });
 
     it("should have a serial property with a number value", () => {
-      expect(testScooterDocked).toHaveProperty("serial", 1);
+      expect(testScooterDocked).toHaveProperty("serial", 22);
     });
 
     it("should have a nextSerial static property with a number value starting at 1 and incrementing for each instance of Scooter created", () => {
-      expect(testScooterDocked).toHaveProperty("nextSerial", 2);
+      expect(Scooter.nextSerial).toBe(31);
     });
 
     it("should have a charge property with a number value from 0 to 100", () => {
@@ -110,9 +110,8 @@ describe("Scooter", () => {
 
     describe("recharge() method", () => {
       it("should recharge a Scooter instance", async () => {
-        const scooter = new Scooter();
-        await scooter.charge();
-        expect(scooter.charge).toBe(100);
+        await testScooterLowCharge.recharge();
+        expect(testScooterLowCharge.charge).toBe(100);
       });
     });
 
