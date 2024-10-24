@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1729785790109" clover="3.2.0">
+  <project timestamp="1729785790109" name="All files">
+    <metrics statements="34" coveredstatements="34" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="10" elements="54" coveredelements="54" complexity="0" loc="34" ncloc="34" packages="1" files="3" classes="3"/>
+    <file name="Scooter.js" path="/Users/david.kwon/Multiverse/Unit4/scooter-project/src/Scooter.js">
+      <metrics statements="24" coveredstatements="24" conditionals="8" coveredconditionals="8" methods="7" coveredmethods="7"/>
+      <line num="2" count="2" type="stmt"/>
+      <line num="4" count="91" type="stmt"/>
+      <line num="5" count="91" type="stmt"/>
+      <line num="6" count="91" type="stmt"/>
+      <line num="7" count="91" type="stmt"/>
+      <line num="8" count="91" type="stmt"/>
+      <line num="9" count="91" type="stmt"/>
+      <line num="13" count="20" type="cond" truecount="4" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="16" count="19" type="cond" truecount="4" falsecount="0"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="19" count="18" type="stmt"/>
+      <line num="20" count="18" type="stmt"/>
+      <line num="24" count="2" type="stmt"/>
+      <line num="25" count="2" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="34" count="1" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="47" count="2" type="stmt"/>
+    </file>
+    <file name="ScooterApp.js" path="/Users/david.kwon/Multiverse/Unit4/scooter-project/src/ScooterApp.js">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="5" count="1" type="stmt"/>
+    </file>
+    <file name="User.js" path="/Users/david.kwon/Multiverse/Unit4/scooter-project/src/User.js">
+      <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+      <line num="3" count="62" type="stmt"/>
+      <line num="4" count="62" type="stmt"/>
+      <line num="5" count="62" type="stmt"/>
+      <line num="6" count="62" type="stmt"/>
+      <line num="10" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="21" count="3" type="stmt"/>
+    </file>
+  </project>
+</coverage>
