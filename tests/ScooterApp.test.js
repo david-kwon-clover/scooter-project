@@ -27,7 +27,7 @@ describe("ScooterApp", () => {
       expect(testApp.stations).toHaveProperty("Central Park");
       expect(testApp.stations).toHaveProperty("Convention Center");
       expect(testApp.stations["Union Station"].length).toBe(2);
-      expect(testApp.stations["Central park"].length).toBe(1);
+      expect(testApp.stations["Central Park"].length).toBe(1);
       expect(testApp.stations["Convention Center"].length).toBe(3);
       expect(testApp.stations["Union Station"][0]).toBeInstanceOf(Scooter);
       expect(testApp.stations["Central Park"][0]).toBeInstanceOf(Scooter);
@@ -50,14 +50,14 @@ describe("ScooterApp", () => {
         username: "dingus",
         password: "iLikeWaffles27",
         age: 24,
-        isLoggedIn: false,
+        loggedIn: false,
       });
       expect(testApp.registeredUsers["dingus"]).toBeInstanceOf(User);
       expect(testApp.registeredUsers["bigChonker"]).toEqual({
         username: "bigChonker",
         password: "wonderfulBeans17",
         age: 32,
-        isLoggedIn: false,
+        loggedIn: false,
       });
       expect(testApp.registeredUsers["bigChonker"]).toBeInstanceOf(User);
     });
@@ -76,7 +76,7 @@ describe("ScooterApp", () => {
           username: "dingus",
           password: "iLikeWaffles27",
           age: 24,
-          isLoggedIn: false,
+          loggedIn: false,
         });
       });
 
@@ -98,28 +98,33 @@ describe("ScooterApp", () => {
       it("should successfully login a user", () => {
         testApp.registerUser("dingus", "iLikeWaffles27", 24);
         const loggedInUser = testApp.loginUser("dingus", "iLikeWaffles27");
-        const consoleSpy = jest.spyOn(console, "log");
         expect(loggedInUser).toEqual({
           username: "dingus",
           password: "iLikeWaffles27",
           age: 24,
-          isLoggedIn: false,
+          loggedIn: true,
         });
+      });
+
+      it("should log a message upon successful login", () => {
+        const consoleSpy = jest.spyOn(console, "log");
+        testApp.registerUser("dingus", "iLikeWaffles27", 24);
+        const loggedInUser = testApp.loginUser("dingus", "iLikeWaffles27");
         expect(consoleSpy).toHaveBeenCalledWith("user has been logged in");
       });
 
       it("should handle error if user cannot be located", () => {
         testApp.registerUser("dingus", "iLikeWaffles27", 24);
-        expect(testApp.loginUser("dongus", "iLikeWaffles27")).toThrow(
-          "Username or password is incorrect"
-        );
+        expect(() => {
+          testApp.loginUser("dongus", "iLikeWaffles27");
+        }).toThrow("Username or password is incorrect");
       });
 
       it("should handle error is password is incorrect", () => {
         testApp.registerUser("dingus", "iLikeWaffles27", 24);
-        expect(testApp.loginUser("dingus", "iLikePancakes92")).toThrow(
-          "Username or password is incorrect"
-        );
+        expect(() => {
+          testApp.loginUser("dingus", "iLikePancakes92");
+        }).toThrow("Username or password is incorrect");
       });
     });
 
@@ -128,9 +133,15 @@ describe("ScooterApp", () => {
         testApp.registerUser("dingus", "iLikeWaffles27", 24);
         testApp.loginUser("dingus", "iLikeWaffles27");
         testApp.logoutUser("dingus");
+        expect(testApp.registeredUsers["dingus"].loggedIn).toBe(false);
+      });
+
+      it("should log a message upon successful logout", () => {
         const consoleSpy = jest.spyOn(console, "log");
+        testApp.registerUser("dingus", "iLikeWaffles27", 24);
+        testApp.loginUser("dingus", "iLikeWaffles27");
+        testApp.logoutUser("dingus");
         expect(consoleSpy).toHaveBeenCalledWith("user is logged out");
-        expect(testApp.registeredUsers["dingus"].isLoggedIn).toBe(false);
       });
 
       it("should handle error if user cannot be located", () => {
@@ -163,7 +174,7 @@ describe("ScooterApp", () => {
         expect(testApp.createScooter("Union Station")).toEqual({
           station: "Union Station",
           user: null,
-          serial: 1,
+          serial: 28,
           charge: 100,
           isBroken: false,
         });
@@ -198,27 +209,39 @@ describe("ScooterApp", () => {
       });
 
       it("should handle error if scooter is already at station", () => {
+        testApp.dockScooter(testScooter, "Union Station");
         expect(() => {
           testApp.dockScooter(testScooter, "Union Station");
-        }).toThrow("scooter is already at station");
+        }).toThrow("scooter already at station");
       });
     });
 
     describe("rentScooter(scooter, user) method", () => {
       it("should locate the scooter at one of the stations and remove it", () => {
-        testApp.rentScooter(testScooter, testUser);
-        expect(testApp.stations["Union Station"]).toHaveLength(0);
+        const rentScooter = testApp.createScooter("Convention Center");
+        testApp.rentScooter(rentScooter, testUser);
+        expect(testApp.stations["Convention Center"]).toHaveLength(0);
       });
 
       it("should successfully rent the scooter to user", () => {
-        testApp.rentScooter(testScooter, testUser);
-        expect(testScooter.user).toEqual(testUser.username);
+        const rentScooter = testApp.createScooter("Convention Center");
+        testApp.rentScooter(rentScooter, testUser);
+        expect(rentScooter.user).toEqual(testUser);
+      });
+
+      it("should log a message upon successfully renting scooter to user", () => {
+        const consoleSpy = jest.spyOn(console, "log");
+        const rentScooter = testApp.createScooter("Convention Center");
+        testApp.rentScooter(rentScooter, testUser);
+        expect(consoleSpy).toHaveBeenCalledWith("scooter is rented");
       });
 
       it("should handle error if scooter is already rented", () => {
-        testApp.rentScooter(testScooter, testUser);
+        const rentScooter = testApp.createScooter("Convention Center");
+        const newUser = new User("newGuy", "wowza", 34);
+        testApp.rentScooter(rentScooter, testUser);
         expect(() => {
-          testApp.rentScooter(testScooter, testUser);
+          testApp.rentScooter(rentScooter, newUser);
         }).toThrow("scooter already rented");
       });
     });
